@@ -20,3 +20,7 @@ Uses `plexapi` module
 `python3 walkman.py`
 
 The files that make up the playlists should now each be in a separate directory.
+
+# Alternative
+
+For something more robust with more features, use [PPP](https://github.com/XDGFX/PPP)

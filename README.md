@@ -10,10 +10,8 @@ Uses `plexapi` module
 
 # Installation 
 
-```
-git clone https://github.com/veebch/walkman
-
-cd walkman ```
+```git clone https://github.com/veebch/walkman
+cd walkman```
 
 Add your plex token (and adjust the hostname if needed)
 

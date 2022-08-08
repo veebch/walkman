@@ -13,7 +13,7 @@ Uses `plexapi` module
     git clone https://github.com/veebch/walkman
     cd walkman
 
-Add your plex token (and adjust the hostname if needed)
+[Add your plex token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) (and adjust the hostname if needed)
 
 # Run 
 

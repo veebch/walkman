@@ -6,7 +6,9 @@ A few lines of Python to get copies of audio files from Plex playlists to add to
 
 # Dependencies
 
-Uses `plexapi` module
+Uses `plexapi` module. Install it with the command:
+
+    python3 -m pip install plexapi
 
 # Installation 
 

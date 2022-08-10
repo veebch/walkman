@@ -1,2 +1,4 @@
 server: 'http://127.0.0.1:32400/'
 token: <insert token>
+pathprefix: /MUSIC
+

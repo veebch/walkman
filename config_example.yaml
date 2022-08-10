@@ -1,4 +1,4 @@
 server: 'http://127.0.0.1:32400/'
-token: <insert token>
-pathprefix: \
+token: <insert token> #Description on how to find this is at the link in the README
+pathprefix: /mnt/SD0/ #For DAC specific on-device location
 

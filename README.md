@@ -21,7 +21,7 @@ Uses `plexapi` module. Install it with the command:
 
 `python3 walkman.py`
 
-The files that make up the playlists should now each be in a separate directory.
+The files that make up the playlists should now each be in a separate directory, ready to be dragged to your music player.
 
 # Alternative
 

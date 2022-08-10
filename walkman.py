@@ -47,8 +47,8 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
         m3u.write('#EXTART:%s\n' % albumArtist)
         m3u.write('#EXTINF:%s,%s - %s\n' % (seconds, artist, title))
         p = Path(tracks[track].locations[0]) #get the path
-        fullpathoftrack=pathprefix+playlist.title+"\\"+p.name
-        pathoftrack=playlist.title+"\\"+p.name
+        fullpathoftrack=pathprefix+playlist.title+"/"+p.name
+        pathoftrack=playlist.title+"/"+p.name
         m3u.write('%s\n\n' % fullpathoftrack)
         path = Path("music/"+pathoftrack)                                      # It will save each playlist in its own folder
         if path.is_file(): #skips files that already exist

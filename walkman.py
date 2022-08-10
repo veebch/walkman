@@ -5,10 +5,15 @@
 
 from plexapi.myplex import MyPlexAccount
 from pathlib import Path
-
+import yaml
 from plexapi.server import PlexServer
-baseurl = 'http://127.0.0.1:32400/' # Or URL of Plex Server if it's not running on local machine
-token = '<INSERT PLEX TOKEN>'
+import os
+
+configfile = os.path.join(os.path.dirname(os.path.realpath(__file__)),'config.yaml')
+with open(configfile) as f:
+    config = yaml.load(f, Loader=yaml.FullLoader)
+baseurl=config['server']
+token=config['token']
 plex = PlexServer(baseurl, token)
 
 

@@ -14,8 +14,9 @@ Uses `plexapi` module. Install it with the command:
 
     git clone https://github.com/veebch/walkman
     cd walkman
-
-[Add your plex token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) to the file `walkman.py` (and adjust the hostname if needed).
+    cp config_example.yaml config.yaml
+    
+[Add your plex token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) to the file `config.yaml` (and adjust the hostname if needed).
 
 # Run 
 

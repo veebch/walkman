@@ -19,21 +19,18 @@ token=config['token']
 pathprefix=config['pathprefix']
 plex = PlexServer(baseurl, token)
 
-
 # download playlist tracks to current folder. 
 
 for playlist in plex.playlists(playlistType='audio'): #only output audio playlists
+    index=1
     tracks = playlist.items()
     playlist_title=playlist.title
     print(' Playlist generation done')
-    filename = os.path.join(os.path.join(musicdir,playlist_title),playlist_title+'.m3u')
+    filename = os.path.join(os.path.join(musicdir,playlist_title),playlist_title+'.pls')
     dirname = os.path.dirname(filename)
     if not os.path.exists(dirname):
         os.makedirs(dirname)
-    m3u =open( filename, 'w')
-    m3u.write('#EXTM3U\n')
-    m3u.write('#PLAYLIST:%s\n' % playlist_title)
-    m3u.write('\n')
+    pls =open( filename, 'w')
     for track in range(len(tracks)): #loop over tracks
         media = tracks[track].media[0]
         seconds = int(tracks[track].duration / 1000)
@@ -43,17 +40,15 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
         albumArtist = tracks[track].grandparentTitle
         if artist == None:
             artist = albumArtist        
-        m3u.write('#EXTALB:%s\n' % album)
-        m3u.write('#EXTART:%s\n' % albumArtist)
-        m3u.write('#EXTINF:%s,%s - %s\n' % (seconds, artist, title))
         p = Path(tracks[track].locations[0]) #get the path
         fullpathoftrack=pathprefix+playlist.title+"/"+p.name
         pathoftrack=playlist.title+"/"+p.name
-        m3u.write('%s\n\n' % fullpathoftrack)
+        pls.write(fullpathoftrack+'\r\n')
         path = Path("music/"+pathoftrack)                                      # It will save each playlist in its own folder
         if path.is_file(): #skips files that already exist
             print(f'File {path} exists - skipping')
         else:
             print(f'Creating {path}')
-            tracks[track].download(keep_original_name=True,savepath="music/"+playlist_title) 
-    m3u.close()
+            tracks[track].download(keep_original_name=True,savepath="music/"+playlist_title)
+        index=index+1
+    pls.close()

@@ -52,7 +52,7 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
         parts = media.parts
         for part in parts:
             m3u.write('#EXTINF:%s,%s - %s\r\n' % (seconds, artist, title))
-            m3u.write('%s\r\n' % part.file.replace(options.plexMusicRoot, options.replaceWithDir))
+            m3u.write('%s\r\n' % fullpathoftrack)
             m3u.write('\r\n')
         pls.write(fullpathoftrack+'\r\n')                                      # Note the use of a Windows newline
         path = Path("music/"+pathoftrack)                                      # It will save each playlist in its own folder

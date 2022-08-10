@@ -26,11 +26,11 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
     tracks = playlist.items()
     playlist_title=playlist.title
     print(' Playlist generation done')
-    filename = os.path.join(os.path.join(musicdir,playlist_title),playlist_title+'.m3u8')
+    filename = os.path.join(os.path.join(musicdir,playlist_title),playlist_title+'.m3u')
     dirname = os.path.dirname(filename)
     if not os.path.exists(dirname):
         os.makedirs(dirname)
-    m3u =open( filename, 'w', encoding='utf-8-sig')
+    m3u =open( filename, 'w')
     m3u.write('#EXTM3U\n')
     m3u.write('#PLAYLIST:%s\n' % playlist_title)
     m3u.write('\n')

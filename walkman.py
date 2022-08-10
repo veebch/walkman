@@ -23,7 +23,7 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
     tracks = playlist.items()
     for track in range(len(tracks)): #loop over tracks
         p = Path(tracks[track].locations[0]) #get the path
-        path = Path(playlist.title+"/"+p.name)                                      # It will save each playlist in its own folder
+        path = Path("music/"+playlist.title+"/"+p.name)                                      # It will save each playlist in its own folder
         if path.is_file(): #skips files that already exist
             print(f'File {path} exists - skipping')
         else:

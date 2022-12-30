@@ -16,7 +16,7 @@ Uses `plexapi` module. Install it with the command:
     cd walkman
     cp config_example.yaml config.yaml
     
-Then edit the config.yaml file with your own credentials.
+Then edit the config.yaml file with your own credentials and the mount point of your music player.
 
 # Run 
 

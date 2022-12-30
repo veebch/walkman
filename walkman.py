@@ -17,9 +17,6 @@ def ignorestringtolist(astring):
     curr_list = [x.strip(' ') for x in curr_list]
     return curr_list
 
-
-print('Clearing Music Directory')
-os.system("rm -r ./music")
 dirname = os.path.dirname(__file__)
 musicdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'music')
 configfile = os.path.join(os.path.dirname(os.path.realpath(__file__)),'config.yaml')
@@ -78,6 +75,7 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
                 print(f'Creating {path}')
                 tracks[track].download(keep_original_name=True,savepath="music/"+playlist_title)
         m3u.close()
+
 print('Attempting rsync on ./music and', pathprefix)
 path=os.path.join('/',pathprefix)
 pluggedin = Path(path).is_dir()

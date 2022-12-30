@@ -16,7 +16,7 @@ Uses `plexapi` module. Install it with the command:
     cd walkman
     cp config_example.yaml config.yaml
     
-[Add your plex token](https://support.plex.tv/articles/204059436-finding-an-authentication-token-x-plex-token/) to the file `config.yaml` (and adjust the hostname if needed, default is localhost).
+Then edit the config.yaml file with your own credentials.
 
 # Run 
 

@@ -24,6 +24,3 @@ Then edit the config.yaml file with your own credentials and the mount point of 
 
 The files that make up the playlists should now each be in a separate directory in the folder `music`, ready to be dragged to your music player. There is also a pls playlist file that is generated. This is very basic and the resulting playlist is pretty ugly but Astell & Kern seem to have pretty ropey playlist handling. 
 
-# Alternative
-
-For something more robust with more features, use [PPP](https://github.com/XDGFX/PPP)

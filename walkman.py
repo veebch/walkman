@@ -75,7 +75,7 @@ print('Attempting rsync on ./music and', pathprefix)
 path=os.path.join('/',pathprefix)
 pluggedin = Path(path).is_dir()
 if pluggedin:
-    subprocess.call(["rsync", "-avv", "./music/",pathprefix])
+    subprocess.call(["rsync", "-avh","--delete", "./music/",pathprefix])
 else:
     print('Check the music player is connected and that the mount point is listed in config.yaml')
     print('Copies of music are in the directory ./music')

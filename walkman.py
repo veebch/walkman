@@ -27,7 +27,7 @@ account = MyPlexAccount(username, password)
 plex = account.resource(baseurl).connect()  # returns a PlexServer instance
 print('Connected to Plex')
 # download playlist tracks to current folder. 
-ignoredlists = ['All Music','Recently Added', 'Recently Played','Fresh ❤️', '❤️ Tracks']
+ignoredlists = ['Vee','All Music','Recently Added', 'Recently Played','Fresh ❤️', '❤️ Tracks']
 for playlist in plex.playlists(playlistType='audio'): #only output audio playlists
     playlist_title = playlist.title
     if playlist_title in ignoredlists:
@@ -75,8 +75,8 @@ print('Attempting rsync on ./music and', pathprefix)
 path=os.path.join('/',pathprefix)
 pluggedin = Path(path).is_dir()
 if pluggedin:
-    subprocess.call(["rsync", "-avh","--delete", "./music/",pathprefix])
-else:
+    subprocess.call(["rsync", "-avh","--delete", "--checksum", "./music/",pathprefix])
+else:               
     print('Check the music player is connected and that the mount point is listed in config.yaml')
     print('Copies of music are in the directory ./music')
 

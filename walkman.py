@@ -11,6 +11,13 @@ import os
 import subprocess
 from pathlib import Path
 
+def ignorestringtolist(astring):
+    # Takes the string for currencies in the config.yaml file and turns it into a list
+    curr_list = astring.split(",")
+    curr_list = [x.strip(' ') for x in curr_list]
+    return curr_list
+
+
 print('Clearing Music Directory')
 os.system("rm -r ./music")
 dirname = os.path.dirname(__file__)
@@ -22,12 +29,14 @@ baseurl = config['server']
 password = config['password']
 username =config['username']
 pathprefix = config['devicepathprefix']
+ignorelist = ignorestringtolist(config['ignorestring']) 
+
 playerpathprefix = "./"
 account = MyPlexAccount(username, password)
 plex = account.resource(baseurl).connect()  # returns a PlexServer instance
 print('Connected to Plex')
 # download playlist tracks to current folder. 
-ignoredlists = ['Vee','All Music','Recently Added', 'Recently Played','Fresh ❤️', '❤️ Tracks']
+ignoredlists = ignorelist + ['All Music','Recently Added', 'Recently Played','Fresh ❤️', '❤️ Tracks']
 for playlist in plex.playlists(playlistType='audio'): #only output audio playlists
     playlist_title = playlist.title
     if playlist_title in ignoredlists:

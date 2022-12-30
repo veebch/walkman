@@ -22,7 +22,7 @@ baseurl = config['server']
 password = config['password']
 username =config['username']
 pathprefix = config['devicepathprefix']
-playerpathprefix = "/Music/"
+playerpathprefix = "./"
 account = MyPlexAccount(username, password)
 plex = account.resource(baseurl).connect()  # returns a PlexServer instance
 print('Connected to Plex')
@@ -35,7 +35,7 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
     else:
         print('Processing: ',playlist_title)
         tracks = playlist.items()
-        filenamem3u = os.path.join(os.path.join(musicdir,playlist_title),playlist_title+'.m3u')
+        filenamem3u = os.path.join('music',playlist_title+'.m3u')
         dirname = os.path.dirname(filenamem3u)
         if not os.path.exists(dirname):
             os.makedirs(dirname)
@@ -56,12 +56,13 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
             p = Path(tracks[track].locations[0]) #get the path
             fullpathoftrack = playerpathprefix+playlist.title+"/"+p.name
             pathoftrack=playlist.title+"/"+p.name
-            m3u.write('#EXTALB:%s\n' % album)
-            m3u.write('#EXTART:%s\n' % albumArtist)
+            #m3u.write('#EXTALB:%s\n' % album)
+            #m3u.write('#EXTART:%s\n' % albumArtist)
             parts = media.parts
             for part in parts:
-                m3u.write('#EXTINF:%s,%s - %s\r\n' % (seconds, artist, title))
-                m3u.write('\'%s\'\r\n' % fullpathoftrack)
+                m3u.write('#EXTINF:\r\n')
+                muhstring = '\\Music\\'+playlist.title+'\\'+p.name
+                m3u.write('%s\r\n' % muhstring)
                 m3u.write('\r\n')
             path = Path("music/"+pathoftrack)                                      # It will save each playlist in its own folder
             if path.is_file(): #skips files that already exist
@@ -74,7 +75,7 @@ print('Attempting rsync on ./music and', pathprefix)
 path=os.path.join('/',pathprefix)
 pluggedin = Path(path).is_dir()
 if pluggedin:
-    subprocess.call(["rsync", "-avv", "./music/", pathprefix])
+    subprocess.call(["rsync", "-avv", "./music/",pathprefix])
 else:
     print('Check the music player is connected and that the mount point is listed in config.yaml')
     print('Copies of music are in the directory ./music')

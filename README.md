@@ -22,5 +22,5 @@ Then edit the config.yaml file with your own credentials and the mount point of 
 
 `python3 walkman.py`
 
-The files that make up the playlists should now each be in a separate directory in the folder `music`, ready to be dragged to your music player. There is also a pls playlist file that is generated. This is very basic and the resulting playlist is pretty ugly but Astell & Kern seem to have pretty ropey playlist handling. 
+The files that make up the playlists should now each be in a separate directory in the folder `music`, ready to be dragged to your music player. If your player is mounted and configured correctly it will rsync with that directory.
 

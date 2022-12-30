@@ -31,7 +31,6 @@ username =config['username']
 pathprefix = config['devicepathprefix']
 ignorelist = ignorestringtolist(config['ignorestring']) 
 
-playerpathprefix = "./"
 account = MyPlexAccount(username, password)
 plex = account.resource(baseurl).connect()  # returns a PlexServer instance
 print('Connected to Plex')
@@ -63,7 +62,6 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
             if artist == None:
                 artist = albumArtist        
             p = Path(tracks[track].locations[0]) #get the path
-            fullpathoftrack = playerpathprefix+playlist.title+"/"+p.name
             pathoftrack=playlist.title+"/"+p.name
             #m3u.write('#EXTALB:%s\n' % album)
             #m3u.write('#EXTART:%s\n' % albumArtist)

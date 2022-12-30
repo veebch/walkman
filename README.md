@@ -16,7 +16,7 @@ Uses `plexapi` module. Install it with the command:
     cd walkman
     cp config_example.yaml config.yaml
     
-Then edit the config.yaml file with your own credentials, server name, and the mount point of your music player, along with any playlist(s) that you want to ignore.
+Then edit the config.yaml file with your own Plex.tv credentials, server name, and the mount point of your music player, along with any playlist(s) that you want to ignore.
 
 # Run 
 

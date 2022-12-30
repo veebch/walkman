@@ -10,13 +10,15 @@ from plexapi.server import PlexServer
 import os
 import subprocess
 from pathlib import Path
+import shutil
 
 def ignorestringtolist(astring):
     # Takes the string for currencies in the config.yaml file and turns it into a list
     curr_list = astring.split(",")
     curr_list = [x.strip(' ') for x in curr_list]
     return curr_list
-
+print('Clearing ./music... This slows things down, but makes things cleaner')
+shutil.rmtree("music", ignore_errors = True)
 dirname = os.path.dirname(__file__)
 musicdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'music')
 configfile = os.path.join(os.path.dirname(os.path.realpath(__file__)),'config.yaml')
@@ -76,11 +78,12 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
                 tracks[track].download(keep_original_name=True,savepath="music/"+playlist_title)
         m3u.close()
 
+
 print('Attempting rsync on ./music and', pathprefix)
 path=os.path.join('/',pathprefix)
 pluggedin = Path(path).is_dir()
 if pluggedin:
-    subprocess.call(["rsync", "-avh","--delete", "--checksum", "./music/",pathprefix])
+    subprocess.call(["rsync", "-avh","--delete", "--size-only", "./music/",pathprefix])
 else:               
     print('Check the music player is connected and that the mount point is listed in config.yaml')
     print('Copies of music are in the directory ./music')

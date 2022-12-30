@@ -8,7 +8,11 @@ from pathlib import Path
 import yaml
 from plexapi.server import PlexServer
 import os
+import subprocess
+from pathlib import Path
 
+print('Clearing Music Directory')
+os.system("rm -r ./music")
 dirname = os.path.dirname(__file__)
 musicdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'music')
 configfile = os.path.join(os.path.dirname(os.path.realpath(__file__)),'config.yaml')
@@ -69,3 +73,13 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
                 tracks[track].download(keep_original_name=True,savepath="music/"+playlist_title)
         pls.close()
         m3u.close()
+print('Using rsync on ./music and', pathprefix)
+path=os.path.join('/',pathprefix)
+pluggedin = Path(path).is_dir()
+print(pluggedin)
+if pluggedin:
+    subprocess.call(["rsync", "-av", "./music/", pathprefix])
+else:
+    print('Check the music player connected and that the mount point is listed in config.yaml')
+
+    

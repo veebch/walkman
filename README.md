@@ -2,7 +2,7 @@
 
 # Walkman
 
-Get copies of audio files from Plex playlists to add to a DAC walkman.
+Get copies of audio files from Plex playlists to add to a DAC walkman. This is very bare bones and assumes that you keep a relatively small music library on your DAC. 
 
 # Dependencies
 

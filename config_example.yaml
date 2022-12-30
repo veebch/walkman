@@ -1,5 +1,5 @@
-username: '' # Username for your plex.tv account
-password: '' # Password for your plex.tv account
-server: '' # The name of your server
+username: ''
+password: '' #Description on how to find this is at the link in the README
+server: ''
 devicepathprefix: '' #For DAC specific on-device location
-
+ignorestring: XXX 

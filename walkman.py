@@ -62,20 +62,26 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
             if artist is None:
                 artist = albumArtist        
             p = Path(tracks[track].locations[0])    # get the path
-            m3u.write('#EXTALB:%s\n' % album)
-            m3u.write('#EXTART:%s\n' % albumArtist)
+            # m3u.write('#EXTALB:%s\n' % album)
+            # m3u.write('#EXTART:%s\n' % albumArtist)
+            tree = [album, p.name]
+            delim = "\\"
+            breadcrumbm3u = delim.join(tree)
             parts = media.parts
             for part in parts:
                 m3u.write('#EXTINF:\r\n')
-                muhstring = '\\Music\\' + p.name
+                muhstring = '\\Music\\' + breadcrumbm3u
                 m3u.write('%s\r\n' % muhstring)
                 m3u.write('\r\n')
-            trackpath = Path("music/" + p.name)
+            delim = "/"
+            breadcrumb = delim.join(tree)
+            pathstr = "music/"+album+"/"
+            trackpath = Path("music/" + breadcrumb)
             if trackpath.is_file():                 # skips files that already exist
                 print(f'File {trackpath} exists - skipping')
             else:
                 print(f'Creating {trackpath}')
-                tracks[track].download(keep_original_name=True, subfolders=True, savepath='music')
+                tracks[track].download(keep_original_name=True, savepath=pathstr)
         m3u.close()
 
 

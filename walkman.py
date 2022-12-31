@@ -59,7 +59,7 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
             album = tracks[track].parentTitle
             artist = tracks[track].originalTitle
             albumArtist = tracks[track].grandparentTitle
-            if artist  None:
+            if artist is None:
                 artist = albumArtist        
             p = Path(tracks[track].locations[0]) #get the path
             m3u.write('#EXTALB:%s\n' % album)

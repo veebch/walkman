@@ -13,8 +13,9 @@ import subprocess
 import shutil
 import yaml
 
+
 def ignorestringtolist(astring):
-    # Takes the string for currencies in the config.yaml 
+    # Takes the string for currencies in the config.yaml
     # file and turns it into a list
     curr_list = astring.split(",")
     curr_list = [x.strip(' ') for x in curr_list]
@@ -24,8 +25,14 @@ def ignorestringtolist(astring):
 print('Clearing ./music... This slows things down, but makes things cleaner')
 shutil.rmtree("music", ignore_errors=True)
 dirname = os.path.dirname(__file__)
-musicdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'music')
-configfile = os.path.join(os.path.dirname(os.path.realpath(__file__)),'config.yaml')
+musicdir = os.path.join(
+        os.path.dirname(
+            os.path.realpath(__file__)),
+        'music')
+configfile = os.path.join(
+        os.path.dirname(
+            os.path.realpath(__file__)),
+        'config.yaml')
 with open(configfile) as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 baseurl = config['server']
@@ -38,8 +45,14 @@ account = MyPlexAccount(username, password)
 plex = account.resource(baseurl).connect()  # returns a PlexServer instance
 print('Connected to Plex')
 # download playlist tracks to current folder.
-ignoredlists = ignorelist + ['All Music','Recently Added', 'Recently Played','Fresh ❤️', '❤️ Tracks']
-for playlist in plex.playlists(playlistType='audio'):  # only output audio playlists
+ignoredlists = ignorelist + \
+        ['All Music',
+         'Recently Added',
+         'Recently Played',
+         'Fresh ❤️',
+         '❤️ Tracks']
+# Audio Playlists Only
+for playlist in plex.playlists(playlistType='audio'):
     if playlist.title in ignoredlists:
         print('Skipping Playlist: ', playlist.title)
     else:
@@ -78,11 +91,12 @@ for playlist in plex.playlists(playlistType='audio'):  # only output audio playl
             breadcrumb = delim.join(tree)
             pathstr = "music/"+album+"/"
             trackpath = Path("music/" + breadcrumb)
-            if trackpath.is_file():                 # skips files that already exist
+            if trackpath.is_file():                 # skips files that exist
                 print(f'File {trackpath} exists - skipping')
             else:
                 print(f'Creating {trackpath}')
-                tracks[track].download(keep_original_name=True, savepath=pathstr)
+                tracks[track].download(
+                        keep_original_name=True, savepath=pathstr)
         m3u.close()
 
 
@@ -90,8 +104,11 @@ print('Attempting rsync on ./music and', pathprefix)
 path = os.path.join('/', pathprefix)
 pluggedin = Path(path).is_dir()
 if pluggedin:
-    subprocess.call(["rsync", "-avh", "--delete", "--size-only", "./music/", pathprefix])
+    subprocess.call(
+            ["rsync", "-avh", "--delete", "--size-only", "./music/",
+             pathprefix]
+            )
 else:
-    print('Check the music player is connected and that the mount point is listed in config.yaml')
+    print('Check DAC')
     print('Copies of music are in the directory ./music')
 

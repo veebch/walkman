@@ -1,5 +1,5 @@
-username: ''
-password: '' #Description on how to find this is at the link in the README
-server: ''
-devicepathprefix: '' #For DAC specific on-device location
-ignorestring: XXX 
+username: ''           # Username for Plex.tv
+password: ''           # Password for Plex.tv
+server: ''             # Name of server
+devicepathprefix: ''   # For DAC specific on-device location
+ignorestring: XXX, YYY # A list of playlists to ignore 

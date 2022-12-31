@@ -12,13 +12,16 @@ import subprocess
 from pathlib import Path
 import shutil
 
+
 def ignorestringtolist(astring):
     # Takes the string for currencies in the config.yaml file and turns it into a list
     curr_list = astring.split(",")
     curr_list = [x.strip(' ') for x in curr_list]
     return curr_list
+
+
 print('Clearing ./music... This slows things down, but makes things cleaner')
-shutil.rmtree("music", ignore_errors = True)
+shutil.rmtree("music", ignore_errors=True)
 dirname = os.path.dirname(__file__)
 musicdir = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'music')
 configfile = os.path.join(os.path.dirname(os.path.realpath(__file__)),'config.yaml')
@@ -26,7 +29,7 @@ with open(configfile) as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 baseurl = config['server']
 password = config['password']
-username =config['username']
+username = config['username']
 pathprefix = config['devicepathprefix']
 ignorelist = ignorestringtolist(config['ignorestring']) 
 
@@ -37,11 +40,11 @@ print('Connected to Plex')
 ignoredlists = ignorelist + ['All Music','Recently Added', 'Recently Played','Fresh ❤️', '❤️ Tracks']
 for playlist in plex.playlists(playlistType='audio'): #only output audio playlists
     if playlist.title in ignoredlists:
-        print ('Skipping Playlist: ', playlist.title)
+        print('Skipping Playlist: ', playlist.title)
     else:
         print('Processing: ',playlist.title)
         tracks = playlist.items()
-        filenamem3u = os.path.join('music',playlist.title+'.m3u')
+        filenamem3u = os.path.join('music', playlist.title+'.m3u')
         dirname = os.path.dirname(filenamem3u)
         if not os.path.exists(dirname):
             os.makedirs(dirname)
@@ -56,7 +59,7 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
             album = tracks[track].parentTitle
             artist = tracks[track].originalTitle
             albumArtist = tracks[track].grandparentTitle
-            if artist == None:
+            if artist  None:
                 artist = albumArtist        
             p = Path(tracks[track].locations[0]) #get the path
             m3u.write('#EXTALB:%s\n' % album)
@@ -70,11 +73,11 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
             pathstr = "music/"+playlist.title+"/"+artist+'/'+album+"/"
             path = Path(pathstr)                    # It will save each playlist in its own folder
             trackpath = Path(pathstr+"/"+p.name)  
-            if trackpath.is_file(): #skips files that already exist
+            if trackpath.is_file():                 # skips files that already exist
                 print(f'File {trackpath} exists - skipping')
             else:
                 print(f'Creating {trackpath}')
-                tracks[track].download(keep_original_name=True,subfolders=True,savepath=path)
+                tracks[track].download(keep_original_name=True, subfolders=True, savepath=path)
         m3u.close()
 
 

@@ -36,19 +36,18 @@ print('Connected to Plex')
 # download playlist tracks to current folder. 
 ignoredlists = ignorelist + ['All Music','Recently Added', 'Recently Played','Fresh ❤️', '❤️ Tracks']
 for playlist in plex.playlists(playlistType='audio'): #only output audio playlists
-    playlist_title = playlist.title
-    if playlist_title in ignoredlists:
-        print ('Skipping Playlist: ', playlist_title)
+    if playlist.title in ignoredlists:
+        print ('Skipping Playlist: ', playlist.title)
     else:
-        print('Processing: ',playlist_title)
+        print('Processing: ',playlist.title)
         tracks = playlist.items()
-        filenamem3u = os.path.join('music',playlist_title+'.m3u')
+        filenamem3u = os.path.join('music',playlist.title+'.m3u')
         dirname = os.path.dirname(filenamem3u)
         if not os.path.exists(dirname):
             os.makedirs(dirname)
         m3u = open(filenamem3u, 'w')
         m3u.write('#EXTM3U\r\n')
-        m3u.write('#PLAYLIST:%s\r\n' % playlist_title)
+        m3u.write('#PLAYLIST:%s\r\n' % playlist.title)
         m3u.write('\r\n')
         for track in range(len(tracks)): #loop over tracks
             media = tracks[track].media[0]
@@ -61,21 +60,22 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
             if artist == None:
                 artist = albumArtist        
             p = Path(tracks[track].locations[0]) #get the path
-            pathoftrack=playlist.title+"/"+p.name
-            #m3u.write('#EXTALB:%s\n' % album)
-            #m3u.write('#EXTART:%s\n' % albumArtist)
+            m3u.write('#EXTALB:%s\n' % album)
+            m3u.write('#EXTART:%s\n' % albumArtist)
             parts = media.parts
             for part in parts:
                 m3u.write('#EXTINF:\r\n')
-                muhstring = '\\Music\\'+playlist.title+'\\'+p.name
+                muhstring = '\\Music\\'+playlist.title+'\\'+artist+'\\'+album+'\\'+p.name
                 m3u.write('%s\r\n' % muhstring)
                 m3u.write('\r\n')
-            path = Path("music/"+pathoftrack)                                      # It will save each playlist in its own folder
-            if path.is_file(): #skips files that already exist
-                print(f'File {path} exists - skipping')
+            pathstr = "music/"+playlist.title+"/"+artist+'/'+album+"/"
+            path = Path(pathstr)                    # It will save each playlist in its own folder
+            trackpath = Path(pathstr+"/"+p.name)  
+            if trackpath.is_file(): #skips files that already exist
+                print(f'File {trackpath} exists - skipping')
             else:
-                print(f'Creating {path}')
-                tracks[track].download(keep_original_name=True,savepath="music/"+playlist_title)
+                print(f'Creating {trackpath}')
+                tracks[track].download(keep_original_name=True,subfolders=True,savepath=path)
         m3u.close()
 
 
@@ -88,4 +88,3 @@ else:
     print('Check the music player is connected and that the mount point is listed in config.yaml')
     print('Copies of music are in the directory ./music')
 
-    

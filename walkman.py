@@ -69,12 +69,12 @@ for playlist in plex.playlists(playlistType='audio'):
         for track in range(len(tracks)):            # loop over tracks
             media = tracks[track].media[0]
             # seconds = int(tracks[track].duration / 1000)
-            # title = tracks[track].title        
+            # title = tracks[track].title
             album = tracks[track].parentTitle
             artist = tracks[track].originalTitle
             albumArtist = tracks[track].grandparentTitle
             if artist is None:
-                artist = albumArtist        
+                artist = albumArtist
             p = Path(tracks[track].locations[0])    # get the path
             # m3u.write('#EXTALB:%s\n' % album)
             # m3u.write('#EXTART:%s\n' % albumArtist)

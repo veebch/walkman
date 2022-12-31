@@ -65,24 +65,17 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
             m3u.write('#EXTALB:%s\n' % album)
             m3u.write('#EXTART:%s\n' % albumArtist)
             parts = media.parts
-            tree = [artist, album, p.name]
-            delim = "\\"
-            breadcrumbm3u = delim.join(tree)
             for part in parts:
                 m3u.write('#EXTINF:\r\n')
-                muhstring = '\\Music\\' + breadcrumbm3u
+                muhstring = '\\Music\\' + p.name
                 m3u.write('%s\r\n' % muhstring)
                 m3u.write('\r\n')
-            delim = "/"
-            breadcrumb = delim.join(tree)
-            pathstr = "music/"+artist+'/'+album+"/"
-            path = Path(pathstr)                    # It will save each playlist in its own folder
-            trackpath = Path(breadcrumb)
+            trackpath = Path("music/" + p.name)
             if trackpath.is_file():                 # skips files that already exist
                 print(f'File {trackpath} exists - skipping')
             else:
                 print(f'Creating {trackpath}')
-                tracks[track].download(keep_original_name=True, subfolders=True, savepath=path)
+                tracks[track].download(keep_original_name=True, subfolders=True, savepath='music')
         m3u.close()
 
 

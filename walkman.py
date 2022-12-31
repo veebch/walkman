@@ -51,9 +51,8 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
         m3u.write('\r\n')
         for track in range(len(tracks)): #loop over tracks
             media = tracks[track].media[0]
-            seconds = int(tracks[track].duration / 1000)
-            title = tracks[track].title        
-            print ('Title: ', title)
+            #seconds = int(tracks[track].duration / 1000)
+            #title = tracks[track].title        
             album = tracks[track].parentTitle
             artist = tracks[track].originalTitle
             albumArtist = tracks[track].grandparentTitle

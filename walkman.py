@@ -52,27 +52,32 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
         m3u.write('#EXTM3U\r\n')
         m3u.write('#PLAYLIST:%s\r\n' % playlist.title)
         m3u.write('\r\n')
-        for track in range(len(tracks)): #loop over tracks
+        for track in range(len(tracks)):            # loop over tracks
             media = tracks[track].media[0]
-            #seconds = int(tracks[track].duration / 1000)
-            #title = tracks[track].title        
+            # seconds = int(tracks[track].duration / 1000)
+            # title = tracks[track].title        
             album = tracks[track].parentTitle
             artist = tracks[track].originalTitle
             albumArtist = tracks[track].grandparentTitle
             if artist is None:
                 artist = albumArtist        
-            p = Path(tracks[track].locations[0]) #get the path
+            p = Path(tracks[track].locations[0])    # get the path
             m3u.write('#EXTALB:%s\n' % album)
             m3u.write('#EXTART:%s\n' % albumArtist)
             parts = media.parts
+            tree = [artist, album, p.name]
+            delim = "\\"
+            breadcrumbm3u = delim.join(tree)
             for part in parts:
                 m3u.write('#EXTINF:\r\n')
-                muhstring = '\\Music\\'+playlist.title+'\\'+artist+'\\'+album+'\\'+p.name
+                muhstring = '\\Music\\' + breadcrumbm3u
                 m3u.write('%s\r\n' % muhstring)
                 m3u.write('\r\n')
-            pathstr = "music/"+playlist.title+"/"+artist+'/'+album+"/"
+            delim = "/"
+            breadcrumb = delim.join(tree)
+            pathstr = "music/"+artist+'/'+album+"/"
             path = Path(pathstr)                    # It will save each playlist in its own folder
-            trackpath = Path(pathstr+"/"+p.name)  
+            trackpath = Path(breadcrumb)
             if trackpath.is_file():                 # skips files that already exist
                 print(f'File {trackpath} exists - skipping')
             else:

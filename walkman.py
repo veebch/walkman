@@ -1,20 +1,21 @@
 #!/usr/bin/python3
-# 
+
+
 #  This is a script that you run to pull playlists from Plex
-#  After running it, you can add your music files to the music player, very old skool
+#  After running it, you can add your music files to the music player
+#  or if it is connected, it will rync to the player
 
 from plexapi.myplex import MyPlexAccount
 from pathlib import Path
-import yaml
 from plexapi.server import PlexServer
 import os
 import subprocess
-from pathlib import Path
 import shutil
-
+import yaml
 
 def ignorestringtolist(astring):
-    # Takes the string for currencies in the config.yaml file and turns it into a list
+    # Takes the string for currencies in the config.yaml 
+    # file and turns it into a list
     curr_list = astring.split(",")
     curr_list = [x.strip(' ') for x in curr_list]
     return curr_list
@@ -31,18 +32,18 @@ baseurl = config['server']
 password = config['password']
 username = config['username']
 pathprefix = config['devicepathprefix']
-ignorelist = ignorestringtolist(config['ignorestring']) 
+ignorelist = ignorestringtolist(config['ignorestring'])
 
 account = MyPlexAccount(username, password)
 plex = account.resource(baseurl).connect()  # returns a PlexServer instance
 print('Connected to Plex')
-# download playlist tracks to current folder. 
+# download playlist tracks to current folder.
 ignoredlists = ignorelist + ['All Music','Recently Added', 'Recently Played','Fresh ❤️', '❤️ Tracks']
-for playlist in plex.playlists(playlistType='audio'): #only output audio playlists
+for playlist in plex.playlists(playlistType='audio'):  # only output audio playlists
     if playlist.title in ignoredlists:
         print('Skipping Playlist: ', playlist.title)
     else:
-        print('Processing: ',playlist.title)
+        print('Processing: ', playlist.title)
         tracks = playlist.items()
         filenamem3u = os.path.join('music', playlist.title+'.m3u')
         dirname = os.path.dirname(filenamem3u)
@@ -86,11 +87,11 @@ for playlist in plex.playlists(playlistType='audio'): #only output audio playlis
 
 
 print('Attempting rsync on ./music and', pathprefix)
-path=os.path.join('/',pathprefix)
+path = os.path.join('/', pathprefix)
 pluggedin = Path(path).is_dir()
 if pluggedin:
-    subprocess.call(["rsync", "-avh","--delete", "--size-only", "./music/",pathprefix])
-else:               
+    subprocess.call(["rsync", "-avh", "--delete", "--size-only", "./music/", pathprefix])
+else:
     print('Check the music player is connected and that the mount point is listed in config.yaml')
     print('Copies of music are in the directory ./music')
 

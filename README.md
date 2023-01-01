@@ -1,6 +1,6 @@
 [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UCz5BOU9J9pB_O0B8-rDjCWQ?label=YouTube&style=social)](https://www.youtube.com/channel/UCz5BOU9J9pB_O0B8-rDjCWQ)
 
-# Walk man
+# Walk, Man
 
 Get copies of audio files from Plex playlists to add to a portable music player. You can specify Playlists to ignore. Works best when you keep a relatively small playlist for use on your travels.
 

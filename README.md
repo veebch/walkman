@@ -2,7 +2,7 @@
 
 # Walkman
 
-Get copies of audio files from Plex playlists to add to a portable DAC. You can specify Playlists to ignore. Works best when you keep a relatively small playlist for use on your DAC.
+Get copies of audio files from Plex playlists to add to a portable music player. You can specify Playlists to ignore. Works best when you keep a relatively small playlist for use on your travels.
 
 # Dependencies
 

@@ -2,7 +2,11 @@
 
 # Walk, Man
 
-Download the original resolution audio files from Plex playlists and add to a portable music player. 
+Download the original resolution audio files from Plex playlists and add to a portable music player.
+
+# Features
+
+- Uses rsync to mirror local copy to the device
 
 # Dependencies
 

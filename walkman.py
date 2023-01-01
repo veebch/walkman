@@ -106,6 +106,7 @@ pluggedin = Path(path).is_dir()
 if pluggedin:
     subprocess.call(
             ["rsync", "-avh", "--delete", "--size-only", "./music/",
+             "exclude='.*'","--ignore-errors",
              pathprefix]
             )
 else: 

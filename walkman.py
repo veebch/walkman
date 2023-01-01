@@ -108,7 +108,7 @@ if pluggedin:
             ["rsync", "-avh", "--delete", "--size-only", "./music/",
              pathprefix]
             )
-else:
-    print('Check DAC')
+else: 
+    print('Check Player is Mounted at:', pathprefix)
     print('Copies of music are in the directory ./music')
 

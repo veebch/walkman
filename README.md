@@ -2,7 +2,9 @@
 
 # Walk, Man
 
-Download the original resolution audio files from Plex playlists and add to a portable music player. You can specify Playlists to ignore. Works best when you keep a relatively small playlist for use on your travels.
+Download the original resolution audio files from Plex playlists and add to a portable music player. 
+
+You can specify Playlists to ignore. Works best when you keep a relatively small playlist for use on your travels.
 
 # Dependencies
 

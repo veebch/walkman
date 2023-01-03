@@ -26,5 +26,9 @@ Then edit the config.yaml file with your own Plex.tv credentials, server name, a
 
 `python3 walkman.py`
 
+If you want to have a clear out of the local intermediate files, just run it with the flag to purge the local copy of the playlist:
+
+`python3 walkman.py -p`
+
 The files that make up the playlists should now each be in a separate directory in the folder `music`, ready to be dragged to your music player. If your player is mounted and configured correctly it will also rsync with that directory.
 

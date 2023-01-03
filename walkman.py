@@ -12,6 +12,7 @@ import os
 import subprocess
 import shutil
 import yaml
+import argparse
 
 
 def ignorestringtolist(astring):
@@ -22,8 +23,14 @@ def ignorestringtolist(astring):
     return curr_list
 
 
-print('Clearing ./music... This slows things down, but makes things cleaner')
-shutil.rmtree("music", ignore_errors=True)
+parser = argparse.ArgumentParser()
+parser.add_argument("-p","--purge", action='store_true', help="Refresh local copy of files")
+args = parser.parse_args()
+# run with -p flag to purge the local library. 
+if args.purge is True:
+    print('Clearing ./music... This slows things down, but makes things cleaner')
+    shutil.rmtree("music", ignore_errors=True)
+
 dirname = os.path.dirname(__file__)
 musicdir = os.path.join(
         os.path.dirname(

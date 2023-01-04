@@ -52,6 +52,7 @@ account = MyPlexAccount(username, password)
 plex = account.resource(baseurl).connect()  # returns a PlexServer instance
 print('Connected to Plex')
 # download playlist tracks to current folder.
+# remove any from the list below if you'd like to import them.
 ignoredlists = ignorelist + \
         ['All Music',
          'Recently Added',

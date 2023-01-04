@@ -97,8 +97,8 @@ for playlist in plex.playlists(playlistType='audio'):
                 m3u.write('\r\n')
             delim = "/"
             breadcrumb = delim.join(tree)
-            pathstr = "music/"+album+"/"
-            trackpath = Path("music/" + breadcrumb)
+            pathstr = os.path.join("music", album)
+            trackpath = Path(os.path.normpath("music/" + breadcrumb))
             if trackpath.is_file():                 # skips files that exist
                 print(f'File {trackpath} exists - skipping')
             else:
@@ -113,7 +113,7 @@ path = os.path.join('/', pathprefix)
 pluggedin = Path(path).is_dir()
 if pluggedin:
     subprocess.call(
-            ["rsync", "-avh", "--delete", "--size-only", "./music/",
+            ["rsync", "-avh", "--delete", "--size-only", "music/",
              "exclude='.*'","--ignore-errors",
              pathprefix]
             )

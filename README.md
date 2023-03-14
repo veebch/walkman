@@ -10,9 +10,9 @@ Download the original resolution audio files from Plex playlists and add to a po
 
 # Dependencies
 
-Uses `plexapi` module. Install it with the command:
+Install the required Python3 modules
 
-    python3 -m pip install plexapi
+    python3 -m pip install -r requirements.txt
 
 # Installation 
 

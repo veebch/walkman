@@ -12,7 +12,7 @@ Download the original resolution audio files from Plex playlists and add to a po
 
 Install the required Python3 modules
 
-python3 -m pip install -r requirements.txt
+    python3 -m pip install -r requirements.txt
 
 # Installation 
 

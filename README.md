@@ -1,5 +1,7 @@
 [![YouTube Channel Views](https://img.shields.io/youtube/channel/views/UCz5BOU9J9pB_O0B8-rDjCWQ?label=YouTube&style=social)](https://www.youtube.com/channel/UCz5BOU9J9pB_O0B8-rDjCWQ)
 
+![banner](/images/banner.png)
+
 # Walk, Man
 
 Download the *original resolution* audio files from Plex playlists and add to a portable music player (DAP).

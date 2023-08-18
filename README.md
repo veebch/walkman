@@ -2,7 +2,7 @@
 
 # Walk, Man
 
-Download the original resolution audio files from Plex playlists and add to a portable music player (DAP).
+Download the *original resolution* audio files from Plex playlists and add to a portable music player (DAP).
 
 # Features
 

@@ -5,6 +5,7 @@
 
 import os
 import re
+import getpass
 import subprocess
 import shutil
 import argparse
@@ -12,6 +13,7 @@ from pathlib import Path
 
 import yaml
 from plexapi.myplex import MyPlexAccount
+from plexapi.exceptions import Unauthorized, TwoFactorRequired
 
 # Characters that are illegal in Windows/exFAT/FAT32 paths.
 # Used to sanitize album/track names before using them as folder/file names.
@@ -50,16 +52,55 @@ with open(configfile) as f:
     config = yaml.load(f, Loader=yaml.FullLoader)
 
 baseurl = config['server']
-password = config['password']
-username = config['username']
 pathprefix = config['devicepathprefix']
 ignorelist = ignorestringtolist(config['ignorestring'])
 
-# NOTE: per python-plexapi docs, this expects your Plex SERVER NAME
-# (as shown in Plex Web), not a hostname/URL. If `server:` in your
-# config.yaml is a URL, double check this is actually working as
-# intended rather than relying on some other fallback behavior.
-account = MyPlexAccount(username, password)
+
+def login_with_credentials(config):
+    # Prompts for username/password (and 2FA code if needed), then
+    # returns a logged-in MyPlexAccount.
+    username = config.get('username') or input("Plex username/email: ")
+    password = config.get('password') or getpass.getpass("Plex password: ")
+    try:
+        return MyPlexAccount(username, password)
+    except TwoFactorRequired:
+        # FIX: confirmed via docs, TwoFactorRequired is a subclass of
+        # Unauthorized that's raised specifically when 2FA is needed
+        # but no code was supplied.
+        code = input("2FA code: ").strip()
+        return MyPlexAccount(username, password, code=code)
+
+
+# NOTE: per python-plexapi docs, MyPlexAccount(token=...) is a documented
+# alternative to username/password. We try the saved token first (if any)
+# and only fall back to prompting for credentials if it's missing or
+# rejected by the server.
+token = config.get('token')
+account = None
+
+if token:
+    try:
+        candidate = MyPlexAccount(token=token)
+        # Touching `resources()` forces an authenticated call to plex.tv,
+        # which will raise Unauthorized if the token is invalid/expired.
+        candidate.resources()
+        account = candidate
+        print('Logged in with saved token')
+    except Unauthorized:
+        print('Saved token is invalid or expired, falling back to login')
+
+if account is None:
+    account = login_with_credentials(config)
+    # Save the new token back to config.yaml so future runs don't need
+    # to prompt for credentials again.
+    # NOTE: this rewrites config.yaml via yaml.dump, which will strip
+    # any comments you have in the file. If that matters to you, let me
+    # know and I can write the token to a separate file instead.
+    config['token'] = account.authenticationToken
+    with open(configfile, 'w') as f:
+        yaml.dump(config, f)
+    print('Saved new token to config.yaml')
+
 plex = account.resource(baseurl).connect()  # returns a PlexServer instance
 print('Connected to Plex')
 

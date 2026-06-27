@@ -6,17 +6,17 @@
 
 Download the *original resolution* audio files from Plex playlists and add to a portable music player (DAP).
 
-# Features
+## Features
 
 - Uses rsync to mirror local copy to the device
 
-# Dependencies
+## Dependencies
 
 Install the required Python3 modules
 
     python3 -m pip install -r requirements.txt
 
-# Installation 
+## Installation 
 
     git clone https://github.com/veebch/walkman
     cd walkman
@@ -24,7 +24,7 @@ Install the required Python3 modules
     
 Then edit the config.yaml file with your own Plex.tv credentials, server name, and the mount point of your music player, along with any playlist(s) that you want to ignore.
 
-# Run 
+## Run 
 
 `python3 walkman.py`
 

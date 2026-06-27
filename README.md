@@ -22,7 +22,7 @@ Install the required Python3 modules
     cd walkman
     cp config_example.yaml config.yaml
     
-Then edit the config.yaml file with your own Plex.tv credentials, server name, and the mount point of your music player, along with any playlist(s) that you want to ignore.
+Then edit the `config.yaml` file with server name (not IP Address), and the mount point of your music player, along with any playlist(s) that you want to ignore.
 
 ## Run 
 

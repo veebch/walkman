@@ -1,5 +1,3 @@
-username: '' # Username for Plex.tv
-password: '' # Password for Plex.tv
-server: '' # Name of server
+server: '' # Name of server (Not IP address)
 devicepathprefix: '' # For DAC specific on-device location
 ignorestring: XXX, YYY # A list of playlists to ignore 

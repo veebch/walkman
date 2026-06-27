@@ -2,7 +2,7 @@
 
 ![banner](/images/banner.png)
 
-# Walk, Man
+# Walkman
 
 Download the *original resolution* audio files from Plex playlists and add to a portable music player (DAP).
 
